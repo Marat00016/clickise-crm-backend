@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique()->comment('Название роли');
             $table->string('slug')->unique()->comment('Уникальный идентификатор');
-            $table->timestamps();
         });
     }
 
