@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dialogs', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid()->primary()->unique();
             $table->bigInteger('chat_id');
             $table->timestamps();
         });
 
         Schema::create('messages', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid()->primary()->unique();
             $table->foreignUuid('dialog_uuid')->constrained()->references('uuid')->on('dialogs')->onDelete('cascade');
             $table->foreignUuid('contact_uuid')->constrained()->references('uuid')->on('contacts')->onDelete('cascade');
             $table->timestamps();
