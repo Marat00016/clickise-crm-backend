@@ -21,6 +21,7 @@ return new class extends Migration
             $table->uuid()->primary()->unique();
             $table->foreignUuid('dialog_uuid')->constrained()->references('uuid')->on('dialogs')->onDelete('cascade');
             $table->foreignUuid('contact_uuid')->constrained()->references('uuid')->on('contacts')->onDelete('cascade');
+            $table->string('text');
             $table->timestamps();
         });
 

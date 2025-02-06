@@ -22,6 +22,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('sales_statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique()->comment('Название статуса');
+            $table->string('slug')->unique()->comment('Уникальный идентификатор');
+        });
+
+        Schema::create('support_statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique()->comment('Название статуса');
+            $table->string('slug')->unique()->comment('Уникальный идентификатор');
+        });
+
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid()->primary()->unique();
             $table->foreignUuid('client_uuid')->nullable()->constrained()->references('uuid')->on('clients')->onDelete('cascade');
@@ -29,6 +41,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->integer('phone')->unsigned()->nullable();
+            $table->foreignId('sales_status_id')->constrained()->references('id')->on('sales_statuses')->onDelete('cascade');
+            $table->foreignId('support_status_id')->constrained()->references('id')->on('support_statuses')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,6 +53,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('contacts');
+        Schema::dropIfExists('sales_statuses');
+        Schema::dropIfExists('support_statuses');
         Schema::dropIfExists('clients');
     }
 };
