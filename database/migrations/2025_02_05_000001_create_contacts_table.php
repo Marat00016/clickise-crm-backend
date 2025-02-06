@@ -40,7 +40,7 @@ return new class extends Migration
             $table->bigInteger('telegram_chat_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('phone')->unsigned()->nullable();
+            $table->bigInteger('phone')->unsigned()->nullable();
             $table->foreignId('sales_status_id')->nullable()->constrained()->references('id')->on('sales_statuses')->onDelete('cascade');
             $table->foreignId('support_status_id')->nullable()->constrained()->references('id')->on('support_statuses')->onDelete('cascade');
             $table->timestamps();

@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Contact
  *
- * @property uuid $uuid
- * @property uuid|null $client_uuid
+ * @property string $uuid
+ * @property string|null $client_uuid
  * @property int $telegram_chat_id
  * @property string|null $name
  * @property string|null $email
@@ -38,7 +38,7 @@ class Contact extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'client_uuid' => 'uuid',
+		'client_uuid' => 'string',
 		'telegram_chat_id' => 'int',
 		'phone' => 'int',
 		'sales_status_id' => 'int',
