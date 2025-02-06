@@ -14,7 +14,7 @@ cd clickise-crm-backend
 Перед установкой убедитесь, что у вас установлены следующие пакеты:
 
 ```bash
-apt install make composer php
+apt install make composer
 ```
 
 ### 3. Автоматическая настройка
