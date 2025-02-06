@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Role
+ * Class SupportStatus
  *
  * @property int $id
  * @property string $name
  * @property string $slug
  *
- * @property Collection|User[] $users
+ * @property Collection|Contact[] $contacts
  *
  * @package App\Models
  */
-class Role extends Model
+class SupportStatus extends Model
 {
-	protected $table = 'roles';
+	protected $table = 'support_statuses';
 	public $timestamps = false;
 
 	protected $fillable = [
@@ -26,8 +26,8 @@ class Role extends Model
 		'slug'
 	];
 
-	public function users()
+	public function contacts()
 	{
-		return $this->hasMany(User::class);
+		return $this->hasMany(Contact::class);
 	}
 }

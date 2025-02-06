@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,12 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property uuid $contact_uuid
  * @property uuid $dialog_uuid
  *
+ * @property Contact $contact
+ * @property Dialog $dialog
+ *
  * @package App\Models
  */
 class ContactsDialog extends Model
 {
-    use HasUuids;
-
 	protected $table = 'contacts_dialogs';
 	public $incrementing = false;
 	public $timestamps = false;
@@ -25,4 +25,14 @@ class ContactsDialog extends Model
 		'contact_uuid' => 'uuid',
 		'dialog_uuid' => 'uuid'
 	];
+
+	public function contact()
+	{
+		return $this->belongsTo(Contact::class, 'contact_uuid');
+	}
+
+	public function dialog()
+	{
+		return $this->belongsTo(Dialog::class, 'dialog_uuid');
+	}
 }
