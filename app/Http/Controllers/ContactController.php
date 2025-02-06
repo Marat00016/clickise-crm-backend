@@ -16,6 +16,9 @@ class ContactController extends Controller
                 'name' => 'string',
                 'email' => 'string',
                 'phone' => 'integer',
+                'sales_status_id' => 'integer',
+                'support_status_id' => 'integer',
+
             ]);
         } catch (\Throwable $th) {
             return $th;
