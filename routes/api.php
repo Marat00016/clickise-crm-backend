@@ -13,11 +13,9 @@ Route::get('/user', function (Request $request) {
 
 JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar $server) {
     $server->resource('contacts', JsonApiController::class)
-        ->readOnly()
-        ->relationships(function (Relationships $relations) {
+        ->only('index', 'show', 'store')
+       /* ->relationships(function (Relationships $relations) {
             $relations->hasOne('clients')->readOnly();
-//            $relations->hasMany('comments')->readOnly();
-//            $relations->hasMany('tags')->readOnly();
-        });
+        })*/;
     $server->resource('clients', JsonApiController::class)->readOnly();
 });
