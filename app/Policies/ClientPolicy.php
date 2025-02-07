@@ -35,17 +35,17 @@ class ClientPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Client $client): bool
+    public function update(?User $user, Client $client): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Client $client): bool
+    public function delete(?User $user, Client $client): bool
     {
-        return false;
+        return true;
     }
 
     /**

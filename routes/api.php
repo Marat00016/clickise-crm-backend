@@ -12,9 +12,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar $server) {
-    $server->resource('contacts', JsonApiController::class)
-       /* ->relationships(function (Relationships $relations) {
-            $relations->hasOne('clients')->readOnly();
-        })*/;
-    $server->resource('clients', JsonApiController::class)->readOnly();
+    $server->resource('contacts', JsonApiController::class);
+    $server->resource('clients', JsonApiController::class);
 });
