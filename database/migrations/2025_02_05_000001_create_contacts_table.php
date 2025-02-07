@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->uuid()->primary()->unique();
+            $table->uuid()->primary();
             $table->string('name');
             $table->string('email')->nullable();
             $table->integer('phone')->nullable()->unsigned();
@@ -35,7 +35,7 @@ return new class extends Migration
         });
 
         Schema::create('contacts', function (Blueprint $table) {
-            $table->uuid()->primary()->unique();
+            $table->uuid()->primary();
             $table->foreignUuid('client_uuid')->nullable()->constrained()->references('uuid')->on('clients')->onDelete('cascade');
             $table->bigInteger('telegram_chat_id')->unsigned();
             $table->string('name')->nullable();
