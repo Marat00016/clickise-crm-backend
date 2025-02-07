@@ -17,13 +17,13 @@ class ContactRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'client_uuid' => ['uuid'],
+            'client_uuid' => ['uuid', 'nullable'],
             'telegram_chat_id' => ['required', 'integer'],
-            'name' => ['string'],
-            'email' => ['string'],
-            'phone' => ['integer'],
-            'sales_status_id' => ['integer'],
-            'support_status_id' => ['integer'],
+            'name' => ['string', 'nullable'],
+            'email' => ['string', 'nullable'],
+            'phone' => ['integer', 'nullable'],
+            'sales_status_id' => ['integer', 'nullable'],
+            'support_status_id' => ['integer', 'nullable'],
         ];
     }
 
