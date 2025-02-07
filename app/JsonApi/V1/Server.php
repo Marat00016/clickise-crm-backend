@@ -32,6 +32,7 @@ class Server extends BaseServer
     protected function allSchemas(): array
     {
         return [
+            Users\UserSchema::class,
             Contacts\ContactSchema::class,
             Clients\ClientSchema::class,
         ];

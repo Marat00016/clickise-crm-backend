@@ -17,6 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar $server) {
+    $server->resource('users', JsonApiController::class);
     $server->resource('contacts', JsonApiController::class);
     $server->resource('clients', JsonApiController::class);
 });
