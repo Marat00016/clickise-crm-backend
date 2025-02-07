@@ -29,16 +29,16 @@ class ContactPolicy
      */
     public function viewClient(?User $user, Contact $contact): bool
     {
-//        return true;
-        return $this->view($user, $contact);
+        return true;
+//        return $this->view($user, $contact);
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
