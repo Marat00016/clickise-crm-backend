@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('user_id')->type('bigInteger')->constrained()->onDelete('cascade');
         });
 
-        Schema::create('contacts_dialogs', function (Blueprint $table) {
+        Schema::create('dialogs_contacts', function (Blueprint $table) {
             $table->primary(['contact_uuid', 'dialog_uuid']);
             $table->foreignUuid('contact_uuid')->constrained()->references('uuid')->on('contacts')->onDelete('cascade');
             $table->foreignUuid('dialog_uuid')->constrained()->references('uuid')->on('dialogs')->onDelete('cascade');
@@ -46,6 +46,6 @@ return new class extends Migration
         Schema::dropIfExists('dialogs');
         Schema::dropIfExists('messages');
         Schema::dropIfExists('dialogs_users');
-        Schema::dropIfExists('contacts_dialogs');
+        Schema::dropIfExists('dialogs_contacts');
     }
 };
