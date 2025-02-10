@@ -13,7 +13,14 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar $server) {
-    Route::post('/login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
+        Route::middleware(['auth:api'])->group(function () {
+            Route::get('/me', [\App\Http\Controllers\Api\V1\AuthController::class, 'me']);
+            Route::get('/logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout']);
+            Route::get('/refresh', [\App\Http\Controllers\Api\V1\AuthController::class, 'refresh']);
+        });
+    });
 
     $server->resource('users', JsonApiController::class);
     $server->resource('contacts', JsonApiController::class);
