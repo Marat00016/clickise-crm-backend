@@ -39,15 +39,4 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
 
     $server->resource('sales-statuses', JsonApiController::class);
     $server->resource('support-statuses', JsonApiController::class);
-
-    Route::get('/dialogs-users', function (Request $request) {
-        $dialog = \App\Models\Dialog::find("9e2d6ffe-b345-4ae8-b943-c718e0683fae");
-        $user = \App\Models\User::find(1);
-
-        $dialog->users()->attach($user->id);
-//        $dialog->users()->detach($user->id);
-
-        $dialog = \App\Models\Dialog::find("9e2d6ffe-b345-4ae8-b943-c718e0683fae");
-        return $dialog->users;
-    });
 });
