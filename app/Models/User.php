@@ -75,4 +75,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Dialog::class, 'dialogs_users', 'user_id', 'dialog_uuid');
     }
+
+    public function roles()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

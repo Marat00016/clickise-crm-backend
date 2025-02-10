@@ -25,6 +25,7 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
     $server->resource('users', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('dialogs');
+            $relations->hasOne('roles');
         });
     $server->resource('clients', JsonApiController::class);
     $server->resource('contacts', JsonApiController::class)
@@ -36,7 +37,10 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
             $relations->hasMany('users');
             $relations->hasMany('contacts');
         });
-    $server->resource('roles', JsonApiController::class);
+    $server->resource('roles', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasMany('users');
+        });
     $server->resource('sales-statuses', JsonApiController::class);
     $server->resource('support-statuses', JsonApiController::class);
 });

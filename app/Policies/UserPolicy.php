@@ -32,6 +32,14 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the user's role.
+     */
+    public function viewRoles(User $user, User $model): bool
+    {
+        return $this->view($user, $model);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
