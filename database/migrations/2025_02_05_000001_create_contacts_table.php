@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('name');
             $table->string('email')->nullable();
-            $table->integer('phone')->nullable()->unsigned();
+            $table->bigInteger('phone')->nullable()->unsigned();
             $table->bigInteger('inn')->unsigned();
             $table->bigInteger('ogrn')->nullable()->unsigned();
             $table->integer('kpp')->nullable()->unsigned();
