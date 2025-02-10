@@ -8,7 +8,6 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class ClientRequest extends ResourceRequest
 {
-
     /**
      * Get the validation rules for the resource.
      *
@@ -16,14 +15,20 @@ class ClientRequest extends ResourceRequest
      */
     public function rules(): array
     {
+        $user = $this->model();
+        $uniqueEmail = Rule::unique('clients', 'email');
+
+        if ($user) {
+            $uniqueEmail->ignoreModel($user);
+        }
+
         return [
-            'name' => ['string', 'required'],
-            'email' => ['string', 'nullable'],
+            'name' => ['required', 'string'],
+            'email' => ['string', 'email', 'nullable', $uniqueEmail],
             'phone' => ['integer', 'nullable'],
-            'inn' => ['integer', 'required'],
+            'inn' => ['required', 'integer', 'nullable'],
             'ogrn' => ['integer', 'nullable'],
             'kpp' => ['integer', 'nullable'],
         ];
     }
-
 }

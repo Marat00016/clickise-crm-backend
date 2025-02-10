@@ -3,7 +3,6 @@
 namespace App\JsonApi\V1\Users;
 
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -15,7 +14,6 @@ use LaravelJsonApi\Eloquent\Schema;
 
 class UserSchema extends Schema
 {
-
     /**
      * The model the schema corresponds to.
      *
@@ -64,5 +62,4 @@ class UserSchema extends Schema
     {
         return PagePagination::make();
     }
-
 }

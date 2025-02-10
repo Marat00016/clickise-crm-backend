@@ -8,7 +8,6 @@ use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
 class UserRequest extends ResourceRequest
 {
-
     /**
      * Get the validation rules for the resource.
      *
@@ -32,5 +31,4 @@ class UserRequest extends ResourceRequest
             'role_id' => ['required', 'integer', Rule::exists('roles', 'id')],
         ];
     }
-
 }

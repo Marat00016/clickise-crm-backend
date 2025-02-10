@@ -6,7 +6,6 @@ use App\Models\Client;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -32,7 +31,6 @@ class ClientSchema extends Schema
     {
         return [
             ID::make('uuid')->uuid(),
-            HasMany::make('contacts')->readOnly(),
             Str::make('name'),
             Str::make('email'),
             Number::make('phone'),
@@ -65,5 +63,4 @@ class ClientSchema extends Schema
     {
         return PagePagination::make();
     }
-
 }

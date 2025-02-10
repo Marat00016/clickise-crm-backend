@@ -6,9 +6,6 @@ use App\Models\Contact;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -17,7 +14,6 @@ use LaravelJsonApi\Eloquent\Schema;
 
 class ContactSchema extends Schema
 {
-
     /**
      * The model the schema corresponds to.
      *
@@ -35,7 +31,6 @@ class ContactSchema extends Schema
         return [
             ID::make('uuid')->uuid(),
             Str::make('client_uuid'),
-            BelongsTo::make('clients')->readOnly(),
             Number::make('telegram_chat_id'),
             Str::make('name'),
             Str::make('email'),
@@ -68,5 +63,4 @@ class ContactSchema extends Schema
     {
         return PagePagination::make();
     }
-
 }
