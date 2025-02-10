@@ -37,6 +37,7 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
             $relations->hasMany('users');
             $relations->hasMany('contacts');
         });
+    $server->resource('messages', JsonApiController::class);
     $server->resource('roles', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('users');

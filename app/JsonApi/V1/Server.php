@@ -36,6 +36,7 @@ class Server extends BaseServer
             Contacts\ContactSchema::class,
             Clients\ClientSchema::class,
             Dialogs\DialogSchema::class,
+            Messages\MessageSchema::class,
             SalesStatuses\SalesStatusSchema::class,
             SupportStatuses\SupportStatusSchema::class,
             Roles\RoleSchema::class,

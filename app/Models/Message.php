@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Message
  *
- * @property uuid $uuid
- * @property uuid $dialog_uuid
- * @property uuid $contact_uuid
+ * @property string $uuid
+ * @property string $dialog_uuid
+ * @property string $contact_uuid
  * @property string $text
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -22,13 +23,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Message extends Model
 {
+    use HasUuids;
+
 	protected $table = 'messages';
 	protected $primaryKey = 'uuid';
 	public $incrementing = false;
 
 	protected $casts = [
-        'dialog_uuid' => 'uuid',
-		'contact_uuid' => 'uuid'
+        'dialog_uuid' => 'string',
+		'contact_uuid' => 'string',
 	];
 
 	protected $fillable = [
