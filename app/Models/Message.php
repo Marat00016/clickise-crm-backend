@@ -40,12 +40,12 @@ class Message extends Model
 		'text'
 	];
 
-	public function dialog()
+	public function dialogs()
 	{
 		return $this->belongsTo(Dialog::class, 'dialog_uuid');
 	}
 
-	public function contact()
+	public function contacts()
 	{
 		return $this->belongsTo(Contact::class, 'contact_uuid');
 	}
