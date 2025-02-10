@@ -17,7 +17,7 @@ class ContactRequest extends ResourceRequest
     {
         return [
             'client_uuid' => ['required', 'uuid', Rule::exists('clients', 'uuid')],
-            'telegram_chat_id' => ['required', 'integer'],
+            'chat_id' => ['required', 'integer'],
             'name' => ['string', 'nullable'],
             'email' => ['email', 'nullable'],
             'phone' => ['integer', 'nullable'],

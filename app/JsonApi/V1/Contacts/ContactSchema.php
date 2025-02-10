@@ -6,6 +6,7 @@ use App\Models\Contact;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -31,7 +32,7 @@ class ContactSchema extends Schema
         return [
             ID::make('uuid')->uuid(),
             Str::make('client_uuid'),
-            Number::make('telegram_chat_id'),
+            Number::make('chat_id'),
             Str::make('name'),
             Str::make('email'),
             Number::make('phone'),
@@ -39,6 +40,7 @@ class ContactSchema extends Schema
             Number::make('support_status_id'),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            BelongsToMany::make('dialogs'),
         ];
     }
 

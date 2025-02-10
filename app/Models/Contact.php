@@ -39,7 +39,7 @@ class Contact extends Model
 
 	protected $casts = [
 		'client_uuid' => 'string',
-		'telegram_chat_id' => 'int',
+		'chat_id' => 'int',
 		'phone' => 'int',
 		'sales_status_id' => 'int',
 		'support_status_id' => 'int'
@@ -47,7 +47,7 @@ class Contact extends Model
 
 	protected $fillable = [
 		'client_uuid',
-		'telegram_chat_id',
+		'chat_id',
 		'name',
 		'email',
 		'phone',
@@ -77,6 +77,6 @@ class Contact extends Model
 
 	public function dialogs()
 	{
-		return $this->belongsToMany(Dialog::class, 'contacts_dialogs', 'contact_uuid', 'dialog_uuid');
+		return $this->belongsToMany(Dialog::class, 'dialogs_contacts', 'contact_uuid', 'dialog_uuid');
 	}
 }

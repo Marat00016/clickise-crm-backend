@@ -26,11 +26,15 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('dialogs');
         });
-    $server->resource('contacts', JsonApiController::class);
+    $server->resource('contacts', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasMany('dialogs');
+        });
     $server->resource('clients', JsonApiController::class);
     $server->resource('dialogs', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('users');
+            $relations->hasMany('contacts');
         });
 
     Route::get('/dialogs-users', function (Request $request) {

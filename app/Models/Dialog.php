@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Dialog
  *
- * @property uuid $uuid
+ * @property string $uuid
  * @property int $chat_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -49,6 +49,6 @@ class Dialog extends Model
 
 	public function contacts()
 	{
-		return $this->belongsToMany(Contact::class, 'contacts_dialogs', 'dialog_uuid', 'contact_uuid');
+		return $this->belongsToMany(Contact::class, 'dialogs_contacts', 'dialog_uuid', 'contact_uuid');
 	}
 }

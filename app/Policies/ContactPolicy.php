@@ -25,11 +25,11 @@ class ContactPolicy
     }
 
     /**
-     * Determine whether the user can view the contact's client.
+     * Determine whether the user can view the contact's dialog.
      */
-    public function viewClient(User $user, Contact $contact): bool
+    public function viewDialogs(User $user, Contact $contact): bool
     {
-        return true;
+        return $this->view($user, $contact);
     }
 
     /**

@@ -41,6 +41,7 @@ class DialogSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
             BelongsToMany::make('users'),
+            BelongsToMany::make('contacts'),
         ];
     }
 
