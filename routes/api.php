@@ -22,8 +22,25 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
         });
     });
 
-    $server->resource('users', JsonApiController::class);
+    $server->resource('users', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasMany('dialogs');
+        });
     $server->resource('contacts', JsonApiController::class);
     $server->resource('clients', JsonApiController::class);
-    $server->resource('dialogs', JsonApiController::class);
+    $server->resource('dialogs', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasMany('users');
+        });
+
+    Route::get('/dialogs-users', function (Request $request) {
+        $dialog = \App\Models\Dialog::find("9e2d6ffe-b345-4ae8-b943-c718e0683fae");
+        $user = \App\Models\User::find(1);
+
+        $dialog->users()->attach($user->id);
+//        $dialog->users()->detach($user->id);
+
+        $dialog = \App\Models\Dialog::find("9e2d6ffe-b345-4ae8-b943-c718e0683fae");
+        return $dialog->users;
+    });
 });

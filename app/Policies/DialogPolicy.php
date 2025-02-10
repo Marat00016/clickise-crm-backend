@@ -25,6 +25,14 @@ class DialogPolicy
     }
 
     /**
+     * Determine whether the user can view the dialog's user.
+     */
+    public function viewUsers(User $user, Dialog $dialog): bool
+    {
+        return $this->view($user, $dialog);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

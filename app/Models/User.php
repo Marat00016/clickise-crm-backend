@@ -70,4 +70,9 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
+    public function dialogs()
+    {
+        return $this->belongsToMany(Dialog::class, 'dialogs_users', 'user_id', 'dialog_uuid');
+    }
 }

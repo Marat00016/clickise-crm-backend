@@ -7,6 +7,7 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
@@ -21,6 +22,13 @@ class DialogSchema extends Schema
     public static string $model = Dialog::class;
 
     /**
+     * The maximum include path depth.
+     *
+     * @var int
+     */
+    protected int $maxDepth = 3;
+
+    /**
      * Get the resource fields.
      *
      * @return array
@@ -32,6 +40,7 @@ class DialogSchema extends Schema
             Number::make('chat_id'),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            BelongsToMany::make('users'),
         ];
     }
 

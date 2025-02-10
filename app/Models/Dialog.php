@@ -44,7 +44,7 @@ class Dialog extends Model
 
 	public function users()
 	{
-		return $this->belongsToMany(User::class, 'dialogs_users', 'dialog_uuid');
+		return $this->belongsToMany(User::class, 'dialogs_users', 'dialog_uuid', 'user_id');
 	}
 
 	public function contacts()
