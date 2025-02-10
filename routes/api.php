@@ -25,4 +25,5 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
     $server->resource('users', JsonApiController::class);
     $server->resource('contacts', JsonApiController::class);
     $server->resource('clients', JsonApiController::class);
+    $server->resource('dialogs', JsonApiController::class);
 });

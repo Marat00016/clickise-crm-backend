@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class DialogsUser
+ * Class DialogUser
  *
  * @property uuid $dialog_uuid
  * @property int $user_id
@@ -15,16 +15,21 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class DialogsUser extends Model
+class DialogUser extends Model
 {
 	protected $table = 'dialogs_users';
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'dialog_uuid' => 'uuid',
+		'dialog_uuid' => 'string',
 		'user_id' => 'int'
 	];
+
+    protected $fillable = [
+        'dialog_uuid',
+        'user_id'
+    ];
 
 	public function dialog()
 	{

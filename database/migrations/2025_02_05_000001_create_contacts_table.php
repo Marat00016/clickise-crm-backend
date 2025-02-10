@@ -37,7 +37,7 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->foreignUuid('client_uuid')->nullable()->constrained()->references('uuid')->on('clients')->onDelete('cascade');
-            $table->bigInteger('telegram_chat_id')->unsigned();
+            $table->bigInteger('chat_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->bigInteger('phone')->unsigned()->nullable();

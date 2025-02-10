@@ -35,6 +35,7 @@ class Server extends BaseServer
             Users\UserSchema::class,
             Contacts\ContactSchema::class,
             Clients\ClientSchema::class,
+            Dialogs\DialogSchema::class,
         ];
     }
 }
