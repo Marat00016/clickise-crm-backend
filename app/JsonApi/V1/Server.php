@@ -38,6 +38,7 @@ class Server extends BaseServer
             Dialogs\DialogSchema::class,
             SalesStatuses\SalesStatusSchema::class,
             SupportStatuses\SupportStatusSchema::class,
+            Roles\RoleSchema::class,
         ];
     }
 }
