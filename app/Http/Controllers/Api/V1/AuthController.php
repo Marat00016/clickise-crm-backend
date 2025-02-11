@@ -8,7 +8,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 
 class AuthController extends Controller
 {
-
     use Actions\FetchMany;
     use Actions\FetchOne;
     use Actions\Store;
@@ -53,7 +52,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth()->logout(true);
 
         return response()->json(['message' => 'Successfully logged out']);
     }
