@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make('password'),
              'role_id' => 1,
          ]);
+
+        (new SpaceSeeder())->run();
+        (new BotSeeder())->run();
+        (new DialogSeeder())->run();
     }
 }
