@@ -40,6 +40,8 @@ class Server extends BaseServer
             SalesStatuses\SalesStatusSchema::class,
             SupportStatuses\SupportStatusSchema::class,
             Roles\RoleSchema::class,
+            Spaces\SpaceSchema::class,
+            Bots\BotSchema::class,
         ];
     }
 }

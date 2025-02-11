@@ -12,9 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string $uuid
  * @property int $chat_id
+ * @property int $bot_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
+ * @property Collection|Bot[] $bot
  * @property Collection|Message[] $messages
  * @property Collection|User[] $users
  * @property Collection|Contact[] $contacts
@@ -30,11 +32,14 @@ class Dialog extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'chat_id' => 'int'
+		'uuid' => 'string',
+		'chat_id' => 'int',
+		'bot_id' => 'int'
 	];
 
 	protected $fillable = [
-		'chat_id'
+		'chat_id',
+		'bot_id'
 	];
 
 	public function messages()
@@ -51,4 +56,9 @@ class Dialog extends Model
 	{
 		return $this->belongsToMany(Contact::class, 'dialogs_contacts', 'dialog_uuid', 'contact_uuid');
 	}
+
+    public function bots()
+    {
+        return $this->belongsTo(Bot::class, 'bot_id');
+    }
 }

@@ -57,4 +57,7 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('contacts');
         });
+
+    $server->resource('spaces', JsonApiController::class);
+    $server->resource('bots', JsonApiController::class);
 });
