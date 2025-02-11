@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('dialogs', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->bigInteger('chat_id');
+            $table->foreignId('bot_id')->constrained()->references('id')->on('bots')->onDelete('cascade');
             $table->timestamps();
         });
 
