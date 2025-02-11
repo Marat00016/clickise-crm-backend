@@ -25,6 +25,14 @@ class SpacePolicy
     }
 
     /**
+     * Determine whether the user can view the space's bot.
+     */
+    public function viewBots(User $user, Space $space): bool
+    {
+        return $this->view($user, $space);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

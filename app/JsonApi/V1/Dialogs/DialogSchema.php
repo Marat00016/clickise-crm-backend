@@ -7,6 +7,7 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -44,6 +45,7 @@ class DialogSchema extends Schema
             BelongsToMany::make('users'),
             BelongsToMany::make('contacts'),
             HasMany::make('messages'),
+            belongsTo::make('bots'),
         ];
     }
 

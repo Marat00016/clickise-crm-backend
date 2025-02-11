@@ -39,6 +39,7 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
             $relations->hasMany('users');
             $relations->hasMany('contacts');
             $relations->hasMany('messages');
+            $relations->hasOne('bots');
         });
     $server->resource('messages', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
@@ -57,7 +58,13 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('contacts');
         });
-
-    $server->resource('spaces', JsonApiController::class);
-    $server->resource('bots', JsonApiController::class);
+    $server->resource('spaces', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasMany('bots');
+        });
+    $server->resource('bots', JsonApiController::class)
+        ->relationships(function (Relationships $relations) {
+            $relations->hasOne('spaces');
+            $relations->hasMany('dialogs');
+        });
 });

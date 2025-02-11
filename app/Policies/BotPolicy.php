@@ -25,6 +25,22 @@ class BotPolicy
     }
 
     /**
+     * Determine whether the user can view the bot's space.
+     */
+    public function viewBots(User $user, Bot $bot): bool
+    {
+        return $this->view($user, $bot);
+    }
+
+    /**
+     * Determine whether the user can view the bot's dialog.
+     */
+    public function viewDialogs(User $user, Bot $bot): bool
+    {
+        return $this->view($user, $bot);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
