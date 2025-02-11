@@ -7,11 +7,6 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 use LaravelJsonApi\Laravel\Routing\Relationships;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-//})->middleware('auth:sanctum');
-})->middleware('auth:api');
-
 JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar $server) {
     Route::prefix('auth')->group(function () {
         Route::post('/login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
