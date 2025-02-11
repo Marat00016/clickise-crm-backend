@@ -33,6 +33,38 @@ class ContactPolicy
     }
 
     /**
+     * Determine whether the user can view the contact's message.
+     */
+    public function viewMessages(User $user, Contact $contact): bool
+    {
+        return $this->view($user, $contact);
+    }
+
+    /**
+     * Determine whether the user can view the contact's client.
+     */
+    public function viewClients(User $user, Contact $contact): bool
+    {
+        return $this->view($user, $contact);
+    }
+
+    /**
+     * Determine whether the user can view the contact's sales-status.
+     */
+    public function viewSalesStatuses(User $user, Contact $contact): bool
+    {
+        return $this->view($user, $contact);
+    }
+
+    /**
+     * Determine whether the user can view the contact's support-status.
+     */
+    public function viewSupportStatuses(User $user, Contact $contact): bool
+    {
+        return $this->view($user, $contact);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

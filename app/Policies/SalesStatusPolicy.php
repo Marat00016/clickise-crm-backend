@@ -25,6 +25,14 @@ class SalesStatusPolicy
     }
 
     /**
+     * Determine whether the user can view the sales-statuses contact.
+     */
+    public function viewContacts(User $user, SalesStatus $salesStatus): bool
+    {
+        return $this->view($user, $salesStatus);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

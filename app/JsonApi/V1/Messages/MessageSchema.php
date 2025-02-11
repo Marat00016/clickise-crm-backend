@@ -37,6 +37,7 @@ class MessageSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
             BelongsTo::make('dialogs'),
+            BelongsTo::make('contacts'),
         ];
     }
 

@@ -25,6 +25,14 @@ class ClientPolicy
     }
 
     /**
+     * Determine whether the user can view the client's contact.
+     */
+    public function viewContacts(User $user, Client $client): bool
+    {
+        return $this->view($user, $client);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

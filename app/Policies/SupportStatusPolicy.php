@@ -25,6 +25,14 @@ class SupportStatusPolicy
     }
 
     /**
+     * Determine whether the user can view the support-statuses contact.
+     */
+    public function viewContacts(User $user, SupportStatus $supportStatus): bool
+    {
+        return $this->view($user, $supportStatus);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

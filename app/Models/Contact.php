@@ -55,19 +55,19 @@ class Contact extends Model
 		'support_status_id'
 	];
 
-	public function client()
+	public function clients()
 	{
 		return $this->belongsTo(Client::class, 'client_uuid');
 	}
 
-	public function sales_status()
+	public function salesStatuses()
 	{
-		return $this->belongsTo(SalesStatus::class);
+		return $this->belongsTo(SalesStatus::class, 'sales_status_id', 'id', 'sales_status_id');
 	}
 
-	public function support_status()
+	public function supportStatuses()
 	{
-		return $this->belongsTo(SupportStatus::class);
+		return $this->belongsTo(SupportStatus::class, 'support_status_id', 'id', 'support_status_id');
 	}
 
 	public function messages()

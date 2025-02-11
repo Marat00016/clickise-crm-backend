@@ -33,6 +33,14 @@ class MessagePolicy
     }
 
     /**
+     * Determine whether the user can view the message's contact.
+     */
+    public function viewContacts(User $user, Message $message): bool
+    {
+        return $this->view($user, $message);
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

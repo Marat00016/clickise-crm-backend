@@ -6,7 +6,9 @@ use App\Models\Contact;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -41,6 +43,10 @@ class ContactSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
             BelongsToMany::make('dialogs'),
+            HasMany::make('messages'),
+            BelongsTo::make('clients'),
+            BelongsTo::make('sales-statuses'),
+            BelongsTo::make('support-statuses'),
         ];
     }
 
