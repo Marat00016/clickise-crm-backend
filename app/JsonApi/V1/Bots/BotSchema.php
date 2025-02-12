@@ -37,6 +37,7 @@ class BotSchema extends Schema
             Str::make('name'),
             Str::make('slug'),
             Str::make('token'),
+            Str::make('webhook_token'),
             BelongsTo::make('spaces'),
             HasMany::make('dialogs'),
         ];

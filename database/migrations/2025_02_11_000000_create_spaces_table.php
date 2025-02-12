@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('token')->unique();
+            $table->string('webhook_token')->unique();
         });
     }
 

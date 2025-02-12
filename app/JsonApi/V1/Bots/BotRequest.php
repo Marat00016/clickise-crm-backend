@@ -22,6 +22,7 @@ class BotRequest extends ResourceRequest
             'name' => ['required', 'string'],
             'slug' => ['required', 'string'],
             'token' => ['required', 'string'],
+            'webhook_token' => ['required', 'string'],
         ];
     }
 

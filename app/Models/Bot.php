@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $slug
  * @property string $token
+ * @property string $webhook_token
  *
  * @property Space $space
  * @property Collection|Dialog[] $dialogs
@@ -29,14 +30,16 @@ class Bot extends Model
 	];
 
 	protected $hidden = [
-		'token'
+		'token',
+		'webhook_token'
 	];
 
 	protected $fillable = [
 		'space_id',
 		'name',
 		'slug',
-		'token'
+		'token',
+		'webhook_token'
 	];
 
 	public function spaces()

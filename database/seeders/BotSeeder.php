@@ -14,7 +14,7 @@ class BotSeeder extends Seeder
     public function run(): void
     {
         Bot::insert([
-            ['space_id' => 1, 'name' => 'Clickise', 'slug' => 'clickise_bot', 'token' => ''],
+            ['space_id' => 1, 'name' => 'Clickise', 'slug' => 'clickise_bot', 'token' => '', 'webhook_token' => ''],
         ]);
     }
 }
