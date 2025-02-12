@@ -67,4 +67,8 @@ JsonApiRoute::server('v1')->prefix('v1')->resources(function (ResourceRegistrar 
             $relations->hasOne('spaces');
             $relations->hasMany('dialogs');
         });
+
+    Route::prefix('webhooks')->group(function () {
+        Route::get('/{token}', [\App\Http\Controllers\Api\V1\WebhookController::class, 'handle']);
+    });
 });
