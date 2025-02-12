@@ -16,7 +16,7 @@ class ContactRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            'client_uuid' => ['required', 'uuid', Rule::exists('clients', 'uuid')],
+            'client_uuid' => ['uuid', 'nullable', Rule::exists('clients', 'uuid')],
             'chat_id' => ['required', 'integer'],
             'name' => ['string', 'nullable'],
             'email' => ['email', 'nullable'],
