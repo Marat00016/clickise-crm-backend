@@ -25,9 +25,10 @@ class WebhookController extends Controller
     public function handle(Request $request, $token)
     {
         $bot = Bot::where('webhook_token', $token)->firstOrFail();
+        $contact = Contact::firstOrFail();
 
         return Http::post(sprintf('https://api.telegram.org/bot%1$s/sendMessage', $bot->token), [
-            'chat_id' => Contact::firstOrFail()->chat_id,
+            'chat_id' => $contact->chat_id,
             'text' => json_encode($request->getContent(), JSON_UNESCAPED_UNICODE),
         ])->json();
     }
