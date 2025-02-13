@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bot;
 use App\Models\Contact;
 use App\Models\Dialog;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
@@ -55,13 +56,22 @@ class WebhookController extends Controller
 
         $validated = $request->validate($this->rules());
 
-        if (data_get($validated, 'message.from.id')) {
-            $dialog = Dialog::firstOrCreate([
-                'chat_id' => data_get($validated, 'message.chat.id'),
-                'bot_id' => $bot->id,
-            ]);
-            $contact = Contact::firstOrCreate(['chat_id' => data_get($validated, 'message.from.id')]);
+        $fromId = data_get($validated, 'message.from.id');
+        $chatId = data_get($validated, 'message.from.id');
+        $text = data_get($validated, 'message.text');
+
+        if ($fromId) {
+            $dialog = Dialog::firstOrCreate(['chat_id' => $chatId, 'bot_id' => $bot->id]);
+            $contact = Contact::firstOrCreate(['chat_id' => $fromId]);
             $dialog->contacts()->syncWithoutDetaching([$contact->uuid]);
+
+            if ($text) {
+                Message::create([
+                    'dialog_uuid' => $dialog->uuid,
+                    'contact_uuid' => $contact->uuid,
+                    'text' => $text,
+                ]);
+            }
         }
 
         return Http::post(sprintf('%1$s/bot%2$s/sendMessage', self::api, $bot->token), [
