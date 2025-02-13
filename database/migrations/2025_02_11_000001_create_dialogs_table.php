@@ -21,7 +21,8 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->foreignUuid('dialog_uuid')->constrained()->references('uuid')->on('dialogs')->onDelete('cascade');
-            $table->foreignUuid('contact_uuid')->constrained()->references('uuid')->on('contacts')->onDelete('cascade');
+            $table->foreignUuid('contact_uuid')->nullable()->constrained()->references('uuid')->on('contacts')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->references('id')->on('users')->onDelete('cascade');
             $table->string('text');
             $table->timestamps();
         });
