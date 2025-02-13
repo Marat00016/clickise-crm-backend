@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Bot;
 use App\Models\Contact;
 use App\Models\Dialog;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use LaravelJsonApi\Core\Responses\MetaResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-class WebhookController extends Controller
+class WebhookController extends JsonApiController
 {
     use Actions\FetchMany;
     use Actions\FetchOne;
@@ -24,9 +25,9 @@ class WebhookController extends Controller
     use Actions\AttachRelationship;
     use Actions\DetachRelationship;
 
-    const api = 'https://api.telegram.org';
+    const API_URL = 'https://api.telegram.org';
 
-    public function rules(): array
+    protected function rules(): array
     {
         return [
             'update_id' => ['required', 'integer'],
@@ -50,14 +51,14 @@ class WebhookController extends Controller
         ];
     }
 
-    public function handle(Request $request, string $token)
+    public function handle(Request $request, string $token): MetaResponse
     {
         $bot = Bot::where('webhook_token', $token)->firstOrFail();
 
         $validated = $request->validate($this->rules());
 
         $fromId = data_get($validated, 'message.from.id');
-        $chatId = data_get($validated, 'message.from.id');
+        $chatId = data_get($validated, 'message.chat.id');
         $text = data_get($validated, 'message.text');
 
         if ($fromId) {
@@ -74,9 +75,9 @@ class WebhookController extends Controller
             }
         }
 
-        return Http::post(sprintf('%1$s/bot%2$s/sendMessage', self::api, $bot->token), [
-            'chat_id' => data_get($validated, 'message.chat.id'),
+        return MetaResponse::make(Http::post(sprintf('%1$s/bot%2$s/sendMessage', self::API_URL, $bot->token), [
+            'chat_id' => $chatId,
             'text' => $request->collect()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
-        ])->json();
+        ])->json())->withServer('v1');
     }
 }

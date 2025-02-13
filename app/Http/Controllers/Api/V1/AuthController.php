@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use LaravelJsonApi\Core\Document\Error;
+use LaravelJsonApi\Core\Responses\MetaResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-class AuthController extends Controller
+class AuthController extends JsonApiController
 {
     use Actions\FetchMany;
     use Actions\FetchOne;
@@ -22,14 +25,14 @@ class AuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return MetaResponse|Error
      */
-    public function login()
+    public function login(): MetaResponse|Error
     {
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return Error::make()->setStatus(401)->setDetail('Unauthorized');
         }
 
         return $this->respondWithToken($token);
@@ -38,7 +41,7 @@ class AuthController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function me()
     {
@@ -48,21 +51,23 @@ class AuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function logout()
     {
         auth()->logout(true);
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return MetaResponse::make([
+            'detail' => 'Successfully logged out',
+        ])->withServer('v1');
     }
 
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return MetaResponse
      */
-    public function refresh()
+    public function refresh(): MetaResponse
     {
         return $this->respondWithToken(auth()->refresh());
     }
@@ -72,14 +77,14 @@ class AuthController extends Controller
      *
      * @param string $token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return MetaResponse
      */
-    protected function respondWithToken(string $token)
+    protected function respondWithToken(string $token): MetaResponse
     {
-        return response()->json([
+        return MetaResponse::make([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ])->withServer('v1');
     }
 }
