@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property string $space_id
  *
  * @property Collection|Contact[] $contacts
  *
@@ -23,11 +24,17 @@ class SalesStatus extends Model
 
 	protected $fillable = [
 		'name',
-		'slug'
+		'slug',
+		'space_id'
 	];
 
 	public function contacts()
 	{
 		return $this->hasMany(Contact::class);
 	}
+
+    public function spaces()
+    {
+        return $this->belongsTo(Space::class, 'space_id');
+    }
 }

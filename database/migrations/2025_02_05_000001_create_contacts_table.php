@@ -24,12 +24,14 @@ return new class extends Migration
 
         Schema::create('sales_statuses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('space_id')->constrained()->references('id')->on('spaces')->onDelete('cascade');
             $table->string('name')->unique()->comment('Название статуса');
             $table->string('slug')->unique()->comment('Уникальный идентификатор');
         });
 
         Schema::create('support_statuses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('space_id')->constrained()->references('id')->on('spaces')->onDelete('cascade');
             $table->string('name')->unique()->comment('Название статуса');
             $table->string('slug')->unique()->comment('Уникальный идентификатор');
         });

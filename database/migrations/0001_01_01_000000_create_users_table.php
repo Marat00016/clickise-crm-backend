@@ -11,6 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('spaces', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug')->unique();
+        });
+
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->comment('Название роли');
@@ -19,12 +25,13 @@ return new class extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('role_id')->constrained()->references('id')->on('roles')->onDelete('cascade');
+            $table->foreignId('space_id')->constrained()->references('id')->on('spaces')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('role_id')->constrained()->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });
 

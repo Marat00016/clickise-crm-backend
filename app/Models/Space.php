@@ -30,4 +30,19 @@ class Space extends Model
 	{
 		return $this->hasMany(Bot::class, 'space_id', 'id');
 	}
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'space_id', 'id');
+    }
+
+    public function salesStatuses()
+    {
+        return $this->hasMany(SalesStatus::class, 'space_id', 'id');
+    }
+
+    public function supportStatuses()
+    {
+        return $this->hasMany(SupportStatus::class, 'space_id', 'id');
+    }
 }

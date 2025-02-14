@@ -42,6 +42,7 @@ class UserSchema extends Schema
             DateTime::make('updatedAt')->sortable()->readOnly(),
             BelongsToMany::make('dialogs'),
             BelongsTo::make('roles'),
+            BelongsTo::make('spaces'),
         ];
     }
 

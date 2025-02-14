@@ -29,6 +29,7 @@ class UserRequest extends ResourceRequest
             'password' => ['required', 'string', 'min:8'],
             'rememberToken' => ['nullable', 'string'],
             'role_id' => ['required', 'integer', Rule::exists('roles', 'id')],
+            'space_id' => ['required', 'integer', Rule::exists('spaces', 'id')],
         ];
     }
 }

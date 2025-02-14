@@ -5,6 +5,7 @@ namespace App\JsonApi\V1\SalesStatuses;
 use App\Models\SalesStatus;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -33,6 +34,7 @@ class SalesStatusSchema extends Schema
             Str::make('name'),
             Str::make('slug'),
             HasMany::make('contacts'),
+            BelongsTo::make('spaces'),
         ];
     }
 

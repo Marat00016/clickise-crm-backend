@@ -11,12 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spaces', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-        });
-
         Schema::create('bots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('space_id')->constrained()->references('id')->on('spaces')->onDelete('cascade');

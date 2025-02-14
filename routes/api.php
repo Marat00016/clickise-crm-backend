@@ -24,6 +24,7 @@ JsonApiRoute::server('v1')
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('dialogs');
             $relations->hasOne('roles');
+            $relations->hasOne('spaces');
         });
     $server->resource('clients', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
@@ -56,14 +57,19 @@ JsonApiRoute::server('v1')
     $server->resource('sales-statuses', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('contacts');
+            $relations->hasOne('spaces');
         });
     $server->resource('support-statuses', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('contacts');
+            $relations->hasOne('spaces');
         });
     $server->resource('spaces', JsonApiController::class)
         ->relationships(function (Relationships $relations) {
             $relations->hasMany('bots');
+            $relations->hasMany('users');
+            $relations->hasMany('sales-statuses');
+            $relations->hasMany('support-statuses');
         });
     $server->resource('bots', JsonApiController::class)
         ->relationships(function (Relationships $relations) {

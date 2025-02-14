@@ -25,9 +25,33 @@ class SpacePolicy
     }
 
     /**
+     * Determine whether the user can view the space's user.
+     */
+    public function viewUsers(User $user, Space $space): bool
+    {
+        return $this->view($user, $space);
+    }
+
+    /**
      * Determine whether the user can view the space's bot.
      */
     public function viewBots(User $user, Space $space): bool
+    {
+        return $this->view($user, $space);
+    }
+
+    /**
+     * Determine whether the user can view the space's sales-status.
+     */
+    public function viewSalesStatuses(User $user, Space $space): bool
+    {
+        return $this->view($user, $space);
+    }
+
+    /**
+     * Determine whether the user can view the space's support-status.
+     */
+    public function viewSupportStatuses(User $user, Space $space): bool
     {
         return $this->view($user, $space);
     }

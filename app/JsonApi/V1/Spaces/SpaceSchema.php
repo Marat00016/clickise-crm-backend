@@ -6,6 +6,7 @@ use App\Models\Space;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
@@ -34,6 +35,9 @@ class SpaceSchema extends Schema
             Str::make('name'),
             Str::make('slug'),
             HasMany::make('bots'),
+            HasMany::make('users'),
+            HasMany::make('sales-statuses'),
+            HasMany::make('support-statuses'),
         ];
     }
 

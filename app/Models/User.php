@@ -46,6 +46,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'role_id',
+        'space_id',
     ];
 
     /**
@@ -84,5 +85,10 @@ class User extends Authenticatable implements JWTSubject
     public function roles()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function spaces()
+    {
+        return $this->belongsTo(Space::class, 'space_id');
     }
 }
