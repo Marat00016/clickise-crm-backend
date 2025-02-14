@@ -33,6 +33,14 @@ class DialogPolicy
     }
 
     /**
+     * Determine whether the user can attach the dialog's user.
+     */
+    public function attachUsers(User $user, Dialog $dialog): bool
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the dialog's contact.
      */
     public function viewContacts(User $user, Dialog $dialog): bool

@@ -18,6 +18,7 @@ class DialogRequest extends ResourceRequest
     {
         return [
             'chat_id' => ['required', 'integer'],
+            'users' => JsonApiRule::toMany(),
         ];
     }
 
