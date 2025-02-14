@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,11 +23,9 @@ class DatabaseSeeder extends Seeder
              'name' => 'Test User',
              'email' => 'test@example.com',
              'password' => Hash::make('password'),
-             'role_id' => 1,
+             'role_id' => Role::firstWhere('slug', 'admin')->id,
          ]);
 
         (new SpaceSeeder())->run();
-        (new BotSeeder())->run();
-        (new DialogSeeder())->run();
     }
 }
