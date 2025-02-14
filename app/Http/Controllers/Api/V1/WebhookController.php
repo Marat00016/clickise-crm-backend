@@ -6,8 +6,10 @@ use App\Models\Bot;
 use App\Models\Contact;
 use App\Models\Dialog;
 use App\Models\Message;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Services\TelegramBotService;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+use LaravelJsonApi\Core\Document\Error;
 use LaravelJsonApi\Core\Responses\MetaResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
@@ -25,59 +27,52 @@ class WebhookController extends JsonApiController
     use Actions\AttachRelationship;
     use Actions\DetachRelationship;
 
-    const API_URL = 'https://api.telegram.org';
+    protected TelegramBotService $telegram;
 
-    protected function rules(): array
+    public function __construct(TelegramBotService $telegram)
     {
-        return [
-            'update_id' => ['required', 'integer'],
-            'message' => ['array'],
-            'message.message_id' => ['required', 'integer'],
-            'message.from' => ['array'],
-            'message.from.id' => ['required', 'integer'],
-            'message.from.is_bot' => ['required', 'boolean'],
-            'message.from.first_name' => ['required', 'string'],
-            'message.from.last_name' => ['string'],
-            'message.from.username' => ['string'],
-            'message.from.language_code' => ['string', 'size:2'],
-            'message.chat' => ['required', 'array'],
-            'message.chat.id' => ['required', 'integer'],
-            'message.chat.first_name' => ['string'],
-            'message.chat.last_name' => ['string'],
-            'message.chat.username' => ['string'],
-            'message.chat.type' => ['required', 'string', 'in:private,group,supergroup,channel'],
-            'message.date' => ['required', 'integer'],
-            'message.text' => ['string'],
-        ];
+        $this->telegram = $telegram;
     }
 
-    public function handle(Request $request, string $token): MetaResponse
+    /**
+     * @throws RequestException
+     * @throws ConnectionException
+     */
+    public function handle(string $token): MetaResponse|Error
     {
-        $bot = Bot::where('webhook_token', $token)->firstOrFail();
-
-        $validated = $request->validate($this->rules());
+        $validated = request()->validate($this->telegram->rulesUpdate());
 
         $fromId = data_get($validated, 'message.from.id');
-        $chatId = data_get($validated, 'message.chat.id');
-        $text = data_get($validated, 'message.text');
-
         if ($fromId) {
-            $dialog = Dialog::firstOrCreate(['chat_id' => $chatId, 'bot_id' => $bot->id]);
             $contact = Contact::firstOrCreate(['chat_id' => $fromId]);
+
+            $bot = Bot::where('webhook_token', $token)->firstOrFail();
+            $this->telegram->setToken($bot->token);
+
+            $chatId = data_get($validated, 'message.chat.id');
+            $dialog = Dialog::firstOrCreate(['chat_id' => $chatId, 'bot_id' => $bot->id]);
+
             $dialog->contacts()->syncWithoutDetaching([$contact->uuid]);
 
+            $text = data_get($validated, 'message.text');
             if ($text) {
                 Message::create([
                     'dialog_uuid' => $dialog->uuid,
                     'contact_uuid' => $contact->uuid,
                     'text' => $text,
                 ]);
+
+                $response = $this->telegram->sendMessage([
+                    'chat_id' => $chatId,
+                    'text' => json_encode($validated, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
+                ]);
             }
         }
 
-        return MetaResponse::make(Http::post(sprintf('%1$s/bot%2$s/sendMessage', self::API_URL, $bot->token), [
-            'chat_id' => $chatId,
-            'text' => $request->collect()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
-        ])->json())->withServer('v1');
+        if (isset($response)) {
+            return MetaResponse::make($response)->withServer('v1');
+        } else {
+            return Error::make()->setStatus(400)->setDetail('Bad Request');
+        }
     }
 }
